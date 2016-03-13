@@ -27,14 +27,14 @@ class PyPdfWatcher(FileSystemEventHandler):
     """
     events = {}
     events_lock = Lock()
-
+    
     def __init__(self, monitor_dir, config):
         FileSystemEventHandler.__init__(self)
 
         self.monitor_dir = monitor_dir
         if not config: config = {}
 
-        self.scan_interval = config.get('scan_interval', 10) # If no updates in 3 seconds (or user specified option in config file) process file
+        self.scan_interval = config.get('scan_interval', 9) # If no updates in 3 seconds (or user specified option in config file) process file
 
     def start(self):
         self.observer = Observer()
@@ -93,7 +93,7 @@ class PyPdfWatcher(FileSystemEventHandler):
 
         """
         if ev_path.endswith(".pdf"):
-            if (not ev_path.endswith("_ocr.pdf") and not ev_path.endswith("_text.pdf")):
+            if not ev_path.endswith(("_ocr.pdf","_text.pdf")):
                 PyPdfWatcher.events_lock.acquire()
                 if not ev_path in PyPdfWatcher.events:
                     PyPdfWatcher.events[ev_path] = time.time()
