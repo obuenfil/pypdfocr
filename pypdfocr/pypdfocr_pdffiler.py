@@ -39,9 +39,26 @@ class PyPdfFiler(object):
         self.file_using_filename = False 
 
     def iter_pdf_page_text(self, filename):
-        self.filename = filename
+      # self.filename = filename
         reader = PdfFileReader(filename)
         logging.info("pdf scanner found %d pages in %s" % (reader.getNumPages(), filename))
+        
+        year = reader.getDocumentInfo()['/CreationDate'][2:5]
+        month = reader.getDocumentInfo()['/CreationDate'][6:7]
+        day = reader.getDocumentInfo()['/CreationDate'][8:9]
+		pageObj = reader.getPage(0)
+		rawText = pageObj.extractText()
+		cleanText = re.sub(r'  ', '\n', re.sub(r'\n', '', rawText)) # do some regex to make it more readable
+		#cleanText = re.sub(r'\n', "", rawText)
+		splitted1 = cleanText.split(' ', 5)[0]
+		splitted2 = cleanText.split(' ', 5)[1]
+		splitted3 = cleanText.split(' ', 5)[2]
+		splitted4 = cleanText.split(' ', 5)[3]
+		splitted5 = cleanText.split(' ', 5)[4]
+		
+		newFileName = year+"-"+month+"-"+day + " " + splitted1+"_"+splitted2+"_"+splitted3+"_"+splitted4+"_"+splitted5+".pdf"
+		logging.info("Changing file name %s --> %s" % (filename,newFileName))
+		self.filename = newFileName
         for pgnum in range(reader.getNumPages()):
             text = reader.getPage(pgnum).extractText()
             text = text.encode('ascii', 'ignore')
