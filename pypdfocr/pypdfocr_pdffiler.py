@@ -43,6 +43,12 @@ class PyPdfFiler(object):
     	year=""
     	month=""
     	day=""
+    	splitted1=""
+    	splitted2=""
+    	splitted3=""
+    	splitted4=""
+    	splitted5=""
+    	
       # self.filename = filename
         reader = PdfFileReader(filename)
         logging.info("pdf scanner found %d pages in %s" % (reader.getNumPages(), filename))
@@ -62,15 +68,17 @@ class PyPdfFiler(object):
         
 	pageObj = reader.getPage(0)
 	rawText = pageObj.extractText()
-	pcleanText = re.sub(r'  ', '\n', re.sub(r'\n', '', rawText)) # do some regex to make it more readable
+	#pcleanText = re.sub(r'  ', '\n', re.sub(r'\n', '', rawText)) # do some regex to make it more readable
 	#cleanText = re.sub(r'\n', "", rawText)
         # Collapse whitespace 
-	cleanText = " ".join(pcleanText.replace(u"\xa0", " ").strip().split())
-	splitted1 = cleanText.split(' ', 5)[0]
-	splitted2 = cleanText.split(' ', 5)[1]
-	splitted3 = cleanText.split(' ', 5)[2]
-	splitted4 = cleanText.split(' ', 5)[3]
-	splitted5 = cleanText.split(' ', 5)[4]
+	cleanText = " ".join(rawText.replace(u"\xa0", " ").strip().split())
+	splitted = cleanText.split(' ', 5)
+	if len(splitted) > 5
+	    splitted1 = splitted[0]
+	    splitted2 = splitted[1]
+	    splitted3 = splitted[2]
+	    splitted4 = splitted[3]
+	    splitted5 = splitted[4]
 	
 	newFileName = year+"-"+month+"-"+day + " " + splitted1+"_"+splitted2+"_"+splitted3+"_"+splitted4+"_"+splitted5+".pdf"
 	logging.info("Changing file name %s --> %s" % (filename,newFileName))
