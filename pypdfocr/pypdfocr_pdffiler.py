@@ -47,6 +47,8 @@ class PyPdfFiler(object):
         logging.info("pdf scanner found %d pages in %s" % (reader.getNumPages(), filename))
         
         metadata = reader.getDocumentInfo()
+        print metadata
+        
         try:
             if metadata.has_key('/CreationDate'):
                 year = metadata['/CreationDate'][2:5]
@@ -55,7 +57,7 @@ class PyPdfFiler(object):
             else:
                 year = datetime.date.today()
         except: #hack ... but sometimes /creationdate is bunged
-            traceback.print_exc()
+            year = datetime.date.today()
         
 	pageObj = reader.getPage(0)
 	rawText = pageObj.extractText()
