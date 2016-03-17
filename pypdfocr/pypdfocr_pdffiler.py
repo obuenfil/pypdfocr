@@ -51,11 +51,11 @@ class PyPdfFiler(object):
     	mydate=""
     	
       # self.filename = filename
-        reader = PdfFileReader(filename)
+        reader = PdfFileReader(open(filename,"rb"))
         logging.info("pdf scanner found %d pages in %s" % (reader.getNumPages(), filename))
         
         metadata = reader.getDocumentInfo()
-        print metadata
+        print str(metadata)
         
         try:
             if metadata.has_key('/CreationDate'):
@@ -64,9 +64,9 @@ class PyPdfFiler(object):
                 day = metadata['/CreationDate'][8:9]
                 mydate =year+"-"+month+"-"+day 
             else:
-                mydate = datetime.date.now().strftime("%Y-%m-%d-%H%M%S")
+                mydate = datetime.datetime.now().strftime("%Y-%m-%d-%H%M%S")
         except: #hack ... but sometimes /creationdate is bunged
-            mydate = datetime.date.now().strftime("%Y-%m-%d_%H%M%S")
+            mydate = datetime.datetime.now().strftime("%Y-%m-%d_%H%M%S")
         
 	pageObj = reader.getPage(0)
 	rawText = pageObj.extractText()
