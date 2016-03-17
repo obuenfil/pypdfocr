@@ -39,13 +39,24 @@ class PyPdfFiler(object):
         self.file_using_filename = False 
 
     def iter_pdf_page_text(self, filename):
+    	year=""
+    	month=""
+    	day=""
       # self.filename = filename
         reader = PdfFileReader(filename)
         logging.info("pdf scanner found %d pages in %s" % (reader.getNumPages(), filename))
         
-        year = reader.getDocumentInfo()['/CreationDate'][2:5]
-        month = reader.getDocumentInfo()['/CreationDate'][6:7]
-        day = reader.getDocumentInfo()['/CreationDate'][8:9]
+        metadata = reader.getDocumentInfo()
+        try:
+            if metadata.has_key('/CreationDate'):
+                year = metadata['/CreationDate'][2:5]
+                month = metadata['/CreationDate'][6:7]
+                day = metadata['/CreationDate'][8:9]
+            else
+                year = datetime.date.today()
+        except: #hack ... but sometimes /creationdate is bunged
+            traceback.print_exc()
+        
 	pageObj = reader.getPage(0)
 	rawText = pageObj.extractText()
 	cleanText = re.sub(r'  ', '\n', re.sub(r'\n', '', rawText)) # do some regex to make it more readable
