@@ -62,8 +62,10 @@ class PyPdfFiler(object):
         
 	pageObj = reader.getPage(0)
 	rawText = pageObj.extractText()
-	cleanText = re.sub(r'  ', '\n', re.sub(r'\n', '', rawText)) # do some regex to make it more readable
+	pcleanText = re.sub(r'  ', '\n', re.sub(r'\n', '', rawText)) # do some regex to make it more readable
 	#cleanText = re.sub(r'\n', "", rawText)
+        # Collapse whitespace 
+	cleanText = " ".join(pcleanText.replace(u"\xa0", " ").strip().split())
 	splitted1 = cleanText.split(' ', 5)[0]
 	splitted2 = cleanText.split(' ', 5)[1]
 	splitted3 = cleanText.split(' ', 5)[2]
