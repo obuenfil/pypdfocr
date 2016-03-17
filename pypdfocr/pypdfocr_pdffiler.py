@@ -104,9 +104,14 @@ class PyPdfFiler(object):
         if not tgt_folder and self.file_using_filename:
             tgt_folder = self._get_matching_folder(filename)
         
-        mydate = datetime.datetime.now().strftime("%Y-%m-%d")
+        mydate = datetime.datetime.now().strftime("%Y-%m-%d-%H%M")
 	
-	newFileName = mydate + " " + splitted1+"_"+splitted2+"_"+splitted3+"_"+splitted4+"_"+splitted5+".pdf"
+	tempfile = mydate + " " + splitted1+"_"+splitted2+"_"+splitted3+"_"+splitted4+"_"+splitted5
+	valid_chars = "-_.() %s%s" % (string.ascii_letters, string.digits)
+        newFileName = ''.join(c for c in tempfile if c in valid_chars)
+        newFileName = newFileName.replace(' ','_') # I don't like spaces in filenames.
+        newFileName = newFileName[0:60] + ".pdf"
+        
 	logging.info("Changing file name %s --> %s" % (filename,newFileName))
         tgt_file = self.filer.move_to_matching_folder(filename,newFileName, tgt_folder)
         return tgt_file
