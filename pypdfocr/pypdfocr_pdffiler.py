@@ -48,6 +48,7 @@ class PyPdfFiler(object):
     	splitted3=""
     	splitted4=""
     	splitted5=""
+    	mydate=""
     	
       # self.filename = filename
         reader = PdfFileReader(filename)
@@ -61,10 +62,11 @@ class PyPdfFiler(object):
                 year = metadata['/CreationDate'][2:5]
                 month = metadata['/CreationDate'][6:7]
                 day = metadata['/CreationDate'][8:9]
+                mydate =year+"-"+month+"-"+day 
             else:
-                year = datetime.date.today()
+                mydate = datetime.date.now().strftime("%Y-%m-%d-%H%M%S")
         except: #hack ... but sometimes /creationdate is bunged
-            year = datetime.date.today()
+            mydate = datetime.date.now().strftime("%Y-%m-%d_%H%M%S")
         
 	pageObj = reader.getPage(0)
 	rawText = pageObj.extractText()
@@ -80,7 +82,7 @@ class PyPdfFiler(object):
 	    splitted4 = splitted[3]
 	    splitted5 = splitted[4]
 	
-	newFileName = year+"-"+month+"-"+day + " " + splitted1+"_"+splitted2+"_"+splitted3+"_"+splitted4+"_"+splitted5+".pdf"
+	newFileName = mydate + " " + splitted1+"_"+splitted2+"_"+splitted3+"_"+splitted4+"_"+splitted5+".pdf"
 	logging.info("Changing file name %s --> %s" % (filename,newFileName))
 	self.filename = newFileName
         for pgnum in range(reader.getNumPages()):
