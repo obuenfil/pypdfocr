@@ -47,23 +47,23 @@ class PyFilerDirs(PyFiler):
         shutil.move(original_filename, tgtfilename)
         return tgtfilename
 
-    def move_to_matching_folder(self, filename, foldername):
+    def move_to_matching_folder(self, filename, newfilename,foldername):
         assert self.target_folder != None
         assert self.default_folder != None
 
         if not foldername:
-            logging.info("[DEFAULT] %s --> %s" % (filename, self.default_folder))
+            logging.info("[DEFAULT] %s --> %s" % (newfilename, self.default_folder))
             tgt_path = os.path.join(self.target_folder, self.default_folder)
         else:   
-            logging.info("[MATCH] %s --> %s" % (filename, foldername))
+            logging.info("[MATCH] %s --> %s" % (newfilename, foldername))
             tgt_path = os.path.join(self.target_folder,foldername)
 
         if not os.path.exists(tgt_path):
             logging.debug("Making path %s" % tgt_path)
             os.makedirs(tgt_path)
 
-        logging.debug("Moving %s to %s" % (filename, tgt_path))
-        tgtfilename = os.path.join(tgt_path, os.path.basename(filename))
+        logging.debug("Moving %s to %s" % (newfilename, tgt_path))
+        tgtfilename = os.path.join(tgt_path, os.path.basename(newfilename))
         tgtfilename = self._get_unique_filename_by_appending_version_integer(tgtfilename)
 
         shutil.move(filename, tgtfilename)
