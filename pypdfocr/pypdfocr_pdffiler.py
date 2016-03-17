@@ -24,6 +24,7 @@ import re
 import logging
 import shutil
 import datetime
+import string
 
 from PyPDF2 import PdfFileReader
 from pypdfocr_filer import PyFiler
