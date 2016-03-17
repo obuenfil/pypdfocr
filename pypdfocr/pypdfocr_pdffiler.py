@@ -43,19 +43,14 @@ class PyPdfFiler(object):
     	year=""
     	month=""
     	day=""
-    	splitted1=""
-    	splitted2=""
-    	splitted3=""
-    	splitted4=""
-    	splitted5=""
     	mydate=""
     	
-      # self.filename = filename
+        self.filename = filename
         reader = PdfFileReader(open(filename,"rb"))
         logging.info("pdf scanner found %d pages in %s" % (reader.getNumPages(), filename))
         
         metadata = reader.getDocumentInfo()
-        print str(metadata)
+        logging.info("METADATA: " + str(metadata))
         
         try:
             if metadata.has_key('/CreationDate'):
@@ -67,24 +62,7 @@ class PyPdfFiler(object):
                 mydate = datetime.datetime.now().strftime("%Y-%m-%d-%H%M%S")
         except: #hack ... but sometimes /creationdate is bunged
             mydate = datetime.datetime.now().strftime("%Y-%m-%d_%H%M%S")
-        
-	pageObj = reader.getPage(0)
-	rawText = pageObj.extractText()
-	#pcleanText = re.sub(r'  ', '\n', re.sub(r'\n', '', rawText)) # do some regex to make it more readable
-	#cleanText = re.sub(r'\n', "", rawText)
-        # Collapse whitespace 
-	cleanText = " ".join(rawText.replace(u"\xa0", " ").strip().split())
-	splitted = cleanText.split(' ', 5)
-	if len(splitted) > 5:
-	    splitted1 = splitted[0]
-	    splitted2 = splitted[1]
-	    splitted3 = splitted[2]
-	    splitted4 = splitted[3]
-	    splitted5 = splitted[4]
-	
-	newFileName = mydate + " " + splitted1+"_"+splitted2+"_"+splitted3+"_"+splitted4+"_"+splitted5+".pdf"
-	logging.info("Changing file name %s --> %s" % (filename,newFileName))
-	self.filename = newFileName
+
         for pgnum in range(reader.getNumPages()):
             text = reader.getPage(pgnum).extractText()
             text = text.encode('ascii', 'ignore')
@@ -106,14 +84,31 @@ class PyPdfFiler(object):
         return self.filer.file_original(original_filename)
 
     def move_to_matching_folder(self, filename):
+    	splitted1=""
+    	splitted2=""
+    	splitted3=""
+    	splitted4=""
+    	splitted5=""
         for page_text in self.iter_pdf_page_text(filename):
             tgt_folder = self._get_matching_folder(page_text)
-            if tgt_folder: break  # Stop searching through pdf pages as soon as we find a match
+            if tgt_folder:
+                splitted = page_text.split(' ', 5)
+	        if len(splitted) > 5:
+	            splitted1 = splitted[0]
+	            splitted2 = splitted[1]
+	            splitted3 = splitted[2]
+	            splitted4 = splitted[3]
+	            splitted5 = splitted[4]
+                break  # Stop searching through pdf pages as soon as we find a match
 
         if not tgt_folder and self.file_using_filename:
             tgt_folder = self._get_matching_folder(filename)
-
-        tgt_file = self.filer.move_to_matching_folder(filename, tgt_folder)
+        
+        mydate = datetime.datetime.now().strftime("%Y-%m-%d")
+	
+	newFileName = mydate + " " + splitted1+"_"+splitted2+"_"+splitted3+"_"+splitted4+"_"+splitted5+".pdf"
+	logging.info("Changing file name %s --> %s" % (filename,newFileName))
+        tgt_file = self.filer.move_to_matching_folder(filename,newFileName, tgt_folder)
         return tgt_file
         
 if __name__ == '__main__':
