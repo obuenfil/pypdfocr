@@ -73,7 +73,7 @@ class PyPdfFiler(object):
         # Collapse whitespace 
 	cleanText = " ".join(rawText.replace(u"\xa0", " ").strip().split())
 	splitted = cleanText.split(' ', 5)
-	if len(splitted) > 5
+	if len(splitted) > 5:
 	    splitted1 = splitted[0]
 	    splitted2 = splitted[1]
 	    splitted3 = splitted[2]
