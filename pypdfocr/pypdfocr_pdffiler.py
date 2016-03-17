@@ -52,7 +52,7 @@ class PyPdfFiler(object):
                 year = metadata['/CreationDate'][2:5]
                 month = metadata['/CreationDate'][6:7]
                 day = metadata['/CreationDate'][8:9]
-            else
+            else:
                 year = datetime.date.today()
         except: #hack ... but sometimes /creationdate is bunged
             traceback.print_exc()
