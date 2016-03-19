@@ -104,7 +104,7 @@ class PyPdfFiler(object):
         if not tgt_folder and self.file_using_filename:
             tgt_folder = self._get_matching_folder(filename)
         
-        mydate = datetime.datetime.now().strftime("%Y-%m-%d-%H%M") - datetime.timedelta(hours=6)
+        mydate = (datetime.datetime.now() - datetime.timedelta(hours=6)).strftime("%Y-%m-%d-%H%M")
         myname=""
         if not splitted1:
             myname = myname + splitted1 + "_"
