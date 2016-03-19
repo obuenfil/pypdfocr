@@ -93,18 +93,22 @@ class PyPdfFiler(object):
         for page_text in self.iter_pdf_page_text(filename):
             tgt_folder = self._get_matching_folder(page_text)
             splitted = page_text.split(' ', 5)
-	    if len(splitted) > 5:
-	        splitted1 = splitted[0].strip()
-	        splitted2 = splitted[1].strip()
-	        splitted3 = splitted[2].strip()
-	        splitted4 = splitted[3].strip()
-	        splitted5 = splitted[4].strip()
-	        if tgt_folder: break  # Stop searching through pdf pages as soon as we find a match
+	    if len(splitted) > 4:
+	        splitted1 = splitted[0]
+	        splitted2 = splitted[1]
+	        splitted3 = splitted[2]
+	        splitted4 = splitted[3]
+	        splitted5 = splitted[4]
+	    logging.info("Num splitted: %s", first word is: %  (len(splitted), splitted[0])) 
+	    if tgt_folder: break  # Stop searching through pdf pages as soon as we find a match
 
         if not tgt_folder and self.file_using_filename:
             tgt_folder = self._get_matching_folder(filename)
         
-        mydate = (datetime.datetime.now() - datetime.timedelta(hours=6)).strftime("%Y-%m-%d-%H%M")
+        
+	logging.info("Changing file name %s --> %s" % (filename,newFileName))
+	
+        mydate = (datetime.datetime.now() - datetime.timedelta(hours=5)).strftime("%Y-%m-%d-%H%M")
         myname=""
         if not splitted1:
             myname = myname + splitted1 + "_"
