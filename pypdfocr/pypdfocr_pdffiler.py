@@ -108,15 +108,15 @@ class PyPdfFiler(object):
         
         mydate = (datetime.datetime.now() - datetime.timedelta(hours=5)).strftime("%Y-%m-%d-%H%M")
         myname=""
-        if not splitted1:
+        if splitted1:
             myname = myname + splitted1 + "_"
-        if not splitted2:
+        if splitted2:
             myname = myname + splitted2 + "_"
-        if not splitted3:
+        if splitted3:
 	    myname = myname + splitted3 + "_"
-        if not splitted4:
+        if splitted4:
             myname = myname + splitted4 + "_"
-        if not splitted5:
+        if splitted5:
             myname = myname + splitted5
 	
 	tempfile = mydate + " " + myname
