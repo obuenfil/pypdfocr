@@ -42,7 +42,7 @@ class PyPdfWatcher(FileSystemEventHandler):
         self.observer.start()
         print("Starting to watch for new pdfs in %s" % (self.monitor_dir))
         while True:
-            logging.info("Sleeping for %d seconds" % self.scan_interval)
+            #logging.info("Sleeping for %d seconds" % self.scan_interval)
             time.sleep(self.scan_interval)
             newFile = self.check_queue()
             if newFile:
