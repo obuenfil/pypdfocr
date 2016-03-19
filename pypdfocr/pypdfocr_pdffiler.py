@@ -92,22 +92,32 @@ class PyPdfFiler(object):
     	splitted5=""
         for page_text in self.iter_pdf_page_text(filename):
             tgt_folder = self._get_matching_folder(page_text)
-            if tgt_folder:
-                splitted = page_text.split(' ', 5)
-	        if len(splitted) > 5:
-	            splitted1 = splitted[0]
-	            splitted2 = splitted[1]
-	            splitted3 = splitted[2]
-	            splitted4 = splitted[3]
-	            splitted5 = splitted[4]
-                break  # Stop searching through pdf pages as soon as we find a match
+            splitted = page_text.split(' ', 5)
+	    if len(splitted) > 5:
+	        splitted1 = splitted[0].strip()
+	        splitted2 = splitted[1].strip()
+	        splitted3 = splitted[2].strip()
+	        splitted4 = splitted[3].strip()
+	        splitted5 = splitted[4].strip()
+	        if tgt_folder: break  # Stop searching through pdf pages as soon as we find a match
 
         if not tgt_folder and self.file_using_filename:
             tgt_folder = self._get_matching_folder(filename)
         
-        mydate = datetime.datetime.now().strftime("%Y-%m-%d-%H%M")
+        mydate = datetime.datetime.now().strftime("%Y-%m-%d-%H%M") - datetime.timedelta(hours=6)
+        myname=""
+        if not splitted1:
+            myname = myname + splitted1 + "_"
+        if not splitted2:
+            myname = myname + splitted2 + "_"
+        if not splitted3:
+	    myname = myname + splitted3 + "_"
+        if not splitted4:
+            myname = myname + splitted4 + "_"
+        if not splitted5:
+            myname = myname + splitted5
 	
-	tempfile = mydate + " " + splitted1+"_"+splitted2+"_"+splitted3+"_"+splitted4+"_"+splitted5
+	tempfile = mydate + " " + myname
 	valid_chars = "-_.() %s%s" % (string.ascii_letters, string.digits)
         newFileName = ''.join(c for c in tempfile if c in valid_chars)
         newFileName = newFileName.replace(' ','_') # I don't like spaces in filenames.
