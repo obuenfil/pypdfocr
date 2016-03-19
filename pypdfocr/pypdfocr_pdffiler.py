@@ -90,6 +90,7 @@ class PyPdfFiler(object):
     	splitted3=""
     	splitted4=""
     	splitted5=""
+    	newFileName=""
         for page_text in self.iter_pdf_page_text(filename):
             tgt_folder = self._get_matching_folder(page_text)
             splitted = page_text.split(' ', 5)
@@ -105,9 +106,6 @@ class PyPdfFiler(object):
         if not tgt_folder and self.file_using_filename:
             tgt_folder = self._get_matching_folder(filename)
         
-        
-	logging.info("Changing file name %s --> %s" % (filename,newFileName))
-	
         mydate = (datetime.datetime.now() - datetime.timedelta(hours=5)).strftime("%Y-%m-%d-%H%M")
         myname=""
         if not splitted1:
