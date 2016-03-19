@@ -99,7 +99,7 @@ class PyPdfFiler(object):
 	        splitted3 = splitted[2]
 	        splitted4 = splitted[3]
 	        splitted5 = splitted[4]
-	    logging.info("Num splitted: %s", first word is: %  (len(splitted), splitted[0])) 
+	    logging.info("Num words splitted: %s, first word is: $s" %  (len(splitted), splitted[0])) 
 	    if tgt_folder: break  # Stop searching through pdf pages as soon as we find a match
 
         if not tgt_folder and self.file_using_filename:
