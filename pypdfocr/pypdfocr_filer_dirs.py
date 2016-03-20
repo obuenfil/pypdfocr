@@ -52,24 +52,27 @@ class PyFilerDirs(PyFiler):
     def move_to_matching_folder(self, filename, newfilename,foldername):
         assert self.target_folder != None
         assert self.default_folder != None
-        subfoldername = filename.split('_')[0]
+        subfoldername = ""
+        if s.find('_')!=-1:  #if found
+            subfoldername = filename.split('_')[0]
+        print  "OS.PATH:" + os.path
         
         if not foldername:
             logging.info("[DEFAULT] %s --> %s" % (newfilename, self.default_folder))
             
-            tgt_path = os.path.join(os.path.join(self.root_folder, subfoldername), self.default_folder.split('/',1)[1])
+            tgt_path = os.path.join(os.path.join(os.path.join(self.root_folder, subfoldername), self.target_folder.split('/',1)[1]), self.default_folder.split('/',1)[1])
             #tgt_path = os.path.join(self.target_folder, self.default_folder)
         else:   
             logging.info("[MATCH] %s --> %s" % (newfilename, foldername))
             
-            tgt_path = os.path.join(os.path.join(self.target_folder, subfoldername), foldername)
+            tgt_path = os.path.join(os.path.join(os.path.join(self.root_folder, subfoldername),self.target_folder.split('/',1)[1], subfoldername), foldername)
             #tgt_path = os.path.join(self.target_folder,foldername)
 
         if not os.path.exists(tgt_path):
-            logging.debug("Making path %s" % tgt_path)
+            logging.info("Making path %s" % tgt_path)
             os.makedirs(tgt_path)
 
-        logging.debug("Moving %s to %s" % (newfilename, tgt_path))
+        logging.info("Moving %s to %s" % (newfilename, tgt_path))
         tgtfilename = os.path.join(tgt_path, os.path.basename(newfilename))
         tgtfilename = self._get_unique_filename_by_appending_version_integer(tgtfilename)
 
