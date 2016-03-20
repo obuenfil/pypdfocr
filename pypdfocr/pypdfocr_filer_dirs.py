@@ -52,8 +52,6 @@ class PyFilerDirs(PyFiler):
         assert self.default_folder != None
         subfoldername = filename.split('_')[0]
         
-        foldername.split('\\',2)
-        
         if not foldername:
             logging.info("[DEFAULT] %s --> %s" % (newfilename, self.default_folder))
         
