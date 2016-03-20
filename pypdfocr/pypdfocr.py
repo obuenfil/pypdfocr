@@ -285,6 +285,8 @@ class PyPDFOCR(object):
             
         self.filer.target_folder = self.config['target_folder']
         self.filer.default_folder = self.config['default_folder']
+        self.filer.root_folder = self.config['root_folder']
+        self.filer.inbox_folder = self.config['inbox_folder']
         self.filer.original_move_folder = original_move_folder
 
         self.pdf_filer = PyPdfFiler(self.filer)
