@@ -35,7 +35,8 @@ class PyPdfWatcher(FileSystemEventHandler):
         if not config: config = {}
 
         self.scan_interval = config.get('scan_interval', 9) # If no updates in 3 seconds (or user specified option in config file) process file
-
+        if config:
+            self.monitor_dir = config.get('watch_folder',"data/inbox")
     def start(self):
         self.observer = Observer()
         self.observer.schedule(self, self.monitor_dir)
