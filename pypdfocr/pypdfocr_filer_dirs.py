@@ -56,14 +56,13 @@ class PyFilerDirs(PyFiler):
         
         if not foldername:
             logging.info("[DEFAULT] %s --> %s" % (newfilename, self.default_folder))
-            self.default_folder.split('\',2)[0]
         
-            tgt_path = os.path.join(self.target_folder, self.default_folder.split('\\',2)[0] +subfoldername +self.default_folder.split('\\',2)[1])
+            tgt_path = os.path.join(self.target_folder, self.default_folder.split('/',1)[0] +"/"+subfoldername +"/"+self.default_folder.split('/',1)[1])
             #tgt_path = os.path.join(self.target_folder, self.default_folder)
         else:   
             logging.info("[MATCH] %s --> %s" % (newfilename, foldername))
             
-            tgt_path = os.path.join(self.target_folder,foldername.split('\\',2)[0] +subfoldername +foldername.split('\\',2)[1])
+            tgt_path = os.path.join(self.target_folder,foldername.split('/',1)[0] +"/"+subfoldername +"/"+foldername.split('/',1)[1])
             #tgt_path = os.path.join(self.target_folder,foldername)
 
         if not os.path.exists(tgt_path):
