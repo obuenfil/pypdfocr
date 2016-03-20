@@ -50,13 +50,21 @@ class PyFilerDirs(PyFiler):
     def move_to_matching_folder(self, filename, newfilename,foldername):
         assert self.target_folder != None
         assert self.default_folder != None
-
+        subfoldername = filename.split('_')[0]
+        
+        foldername.split('\\',2)
+        
         if not foldername:
             logging.info("[DEFAULT] %s --> %s" % (newfilename, self.default_folder))
-            tgt_path = os.path.join(self.target_folder, self.default_folder)
+            self.default_folder.split('\',2)[0]
+        
+            tgt_path = os.path.join(self.target_folder, self.default_folder.split('\\',2)[0] +subfoldername +self.default_folder.split('\\',2)[1])
+            #tgt_path = os.path.join(self.target_folder, self.default_folder)
         else:   
             logging.info("[MATCH] %s --> %s" % (newfilename, foldername))
-            tgt_path = os.path.join(self.target_folder,foldername)
+            
+            tgt_path = os.path.join(self.target_folder,foldername.split('\\',2)[0] +subfoldername +foldername.split('\\',2)[1])
+            #tgt_path = os.path.join(self.target_folder,foldername)
 
         if not os.path.exists(tgt_path):
             logging.debug("Making path %s" % tgt_path)
