@@ -55,7 +55,6 @@ class PyFilerDirs(PyFiler):
         subfoldername = ""
         if filename.find('_')!=-1:  #if found
             subfoldername = filename.split('_')[0]
-        print  "OS.PATH:" + os.path
         
         if not foldername:
             logging.info("[DEFAULT] %s --> %s" % (newfilename, self.default_folder))
