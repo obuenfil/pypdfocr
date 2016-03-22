@@ -68,7 +68,7 @@ class PyFilerDirs(PyFiler):
             logging.info(os.path.abspath( subfoldername))
             logging.info(os.path.abspath(os.path.join(os.path.join("/",  subfoldername),os.path.split(self.target_folder)[1] )) )
             
-            tgt_path = os.path.abspath(os.path.join(os.path.join(os.path.join("/", subfoldername),os.path.split(self.target_folder)[1])) , foldername))
+            tgt_path = os.path.abspath(os.path.join(os.path.join(os.path.join(os.path.join("/", subfoldername),os.path.split(self.target_folder)[1])) , foldername))
             #tgt_path = os.path.join(self.target_folder,foldername)
 
         if not os.path.exists(tgt_path):
