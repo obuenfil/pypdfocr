@@ -63,10 +63,12 @@ class PyFilerDirs(PyFiler):
             #tgt_path = os.path.join(self.target_folder, self.default_folder)
         else:   
             logging.info("[MATCH] %s --> %s" % (newfilename, foldername))
-            logging.info(os.path.join("/"+ self.root_folder, subfoldername))
-            logging.info(os.path.join(os.path.join("/" + self.root_folder, subfoldername),self.target_folder.split('/',1)[1]))
+            logging.info(self.root_folder)
+            logging.info(self.target_folder.split('/',1)[1])
+            logging.info(os.path.join("/", subfoldername))
+            logging.info(os.path.join(os.path.join("/"  subfoldername),self.target_folder.split('/',1)[1]))
             
-            tgt_path = os.path.join(os.path.join(os.path.join("/"+self.root_folder, subfoldername),self.target_folder.split('/',1)[1]), foldername)
+            tgt_path = os.path.join(os.path.join(os.path.join("/", subfoldername),self.target_folder.split('/',1)[1]), foldername)
             #tgt_path = os.path.join(self.target_folder,foldername)
 
         if not os.path.exists(tgt_path):
