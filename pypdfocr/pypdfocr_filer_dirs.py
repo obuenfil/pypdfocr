@@ -32,16 +32,16 @@ class PyFilerDirs(PyFiler):
         self.inbox_folder = None
         self.folder_targets = {}
   
-   def getRoot(file=None):
-      if file is None:
+    def getRoot(file=None):
+        if file is None:
           file='.'
-      me=os.path.abspath(file)
-      drive,path=os.path.splitdrive(me)
-      while 1:
-        path,folder=os.path.split(path)
-        if not folder:
-           break
-      return drive+path     
+        me=os.path.abspath(file)
+        drive,path=os.path.splitdrive(me)
+        while 1:
+            path,folder=os.path.split(path)
+            if not folder:
+                break
+        return drive+path     
 
     def add_folder_target(self, folder, keywords):
         assert folder not in self.folder_targets, "Target folder already defined! (%s)" % (folder)
