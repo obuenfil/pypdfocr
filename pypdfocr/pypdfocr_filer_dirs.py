@@ -82,7 +82,7 @@ class PyFilerDirs(PyFiler):
             tgt_path = os.path.join(self.root_folder,subfoldername,os.path.split(self.target_folder)[1], foldername)
             #tgt_path = os.path.join(self.target_folder,foldername)
             
-        os.remove(tgt_path,'inbox')
+        tgt_path = tgt_path.strip('inbox/')
         if not os.path.exists(tgt_path):
             logging.info("Making path %s" % tgt_path)
             os.makedirs(tgt_path)
