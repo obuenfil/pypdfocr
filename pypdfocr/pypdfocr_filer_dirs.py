@@ -75,14 +75,14 @@ class PyFilerDirs(PyFiler):
         else:   
             logging.info("[MATCH] %s --> %s" % (newfilename, foldername))
             logging.info(self.root_folder)
-            logging.info(subfoldername)
+            logging.info("/"+subfoldername)
             logging.info(os.path.split(self.target_folder)[1])
-            logging.info(os.path.join(self.root_folder,subfoldername,os.path.split(self.target_folder)[1]) ) 
+            logging.info(os.path.join("../",subfoldername,os.path.split(self.target_folder)[1]) ) 
             
             tgt_path = os.path.join(self.root_folder,subfoldername,os.path.split(self.target_folder)[1], foldername)
             #tgt_path = os.path.join(self.target_folder,foldername)
             
-        tgt_path = tgt_path.strip('inbox/')
+        tgt_path = tgt_path.strip('inbox')
         if not os.path.exists(tgt_path):
             logging.info("Making path %s" % tgt_path)
             os.makedirs(tgt_path)
