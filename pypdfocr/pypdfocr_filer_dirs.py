@@ -76,7 +76,7 @@ class PyFilerDirs(PyFiler):
             logging.info("[MATCH] %s --> %s" % (newfilename, foldername))
             logging.info(self.root_folder)
             logging.info(subfoldername)
-            logging.info(os.path.split(self.target_folder)[1]))
+            logging.info(os.path.split(self.target_folder)[1])
             logging.info(os.path.join(self.root_folder,subfoldername,os.path.split(self.target_folder)[1]) ) 
             
             tgt_path = os.path.join(self.root_folder,subfoldername,os.path.split(self.target_folder)[1], foldername)
