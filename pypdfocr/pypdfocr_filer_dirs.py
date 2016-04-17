@@ -69,9 +69,12 @@ class PyFilerDirs(PyFiler):
         
         if not foldername:
             logging.info("[DEFAULT] %s --> %s" % (newfilename, self.default_folder))
+            logging.info(self.root_folder)
+            logging.info(subfoldername)
+            logging.info(os.path.split(self.target_folder)[1])
             
             #tgt_path = os.path.join(subfoldername,os.path.split(self.target_folder)[1], self.default_folder.rsplit('/',1)[0])
-            tgt_path = os.path.abspath(os.path.join(self.root_folder,subfoldername,os.path.split(self.target_folder)[1], self.default_folder ))
+            tgt_path = os.path.abspath(os.path.join(self.root_folder,subfoldername,os.path.split(self.target_folder)[1], self.default_folder.rsplit('/',1)[0] ))
             
             #tgt_path = os.path.join(self.target_folder, self.default_folder)
         else:   
