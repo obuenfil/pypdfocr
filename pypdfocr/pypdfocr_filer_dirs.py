@@ -72,12 +72,12 @@ class PyFilerDirs(PyFiler):
             logging.info(self.root_folder)
             logging.info(subfoldername)
             logging.info(os.path.split(self.target_folder)[1])
-            logging.info(self.default_folder.rsplit('/',1)[0])
-            logging.inof(os.path.abspath(os.path.join(self.root_folder,subfoldername,os.path.split(self.target_folder)[1] )) )
-            logging.info( os.path.abspath(os.path.join(self.root_folder,subfoldername,os.path.split(self.target_folder)[1], self.default_folder.rsplit('/',1)[0] )) )
+            logging.info(self.default_folder.rsplit('/',1)[1])
+            logging.info(os.path.abspath(os.path.join(self.root_folder,subfoldername,os.path.split(self.target_folder)[1] )) )
+            logging.info( os.path.abspath(os.path.join(self.root_folder,subfoldername,os.path.split(self.target_folder)[1], self.default_folder.rsplit('/',1)[1] )) )
           
            #tgt_path = os.path.join(subfoldername,os.path.split(self.target_folder)[1], self.default_folder.rsplit('/',1)[0])
-            tgt_path = os.path.abspath(os.path.join(self.root_folder,subfoldername,os.path.split(self.target_folder)[1], self.default_folder.rsplit('/',1)[0] ))
+            tgt_path = os.path.abspath(os.path.join(self.root_folder,subfoldername,os.path.split(self.target_folder)[1], self.default_folder.rsplit('/',1)[1] ))
             
             #tgt_path = os.path.join(self.target_folder, self.default_folder)
         else:   
